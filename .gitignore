@@ -18,3 +18,4 @@ tools/takeout-server/__pycache__/
 tools/takeout-server/*.sqlite3
 tools/takeout-server/index.json
 .ambient-probe-state.json
+.picker-probe-state.json
