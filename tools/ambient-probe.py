@@ -18,6 +18,7 @@ import json
 import os
 import sys
 import time
+import ssl
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -73,11 +74,27 @@ def save_state(state: dict) -> None:
 
 # ----------------------------------------------------------------- transport
 
+def ssl_context() -> ssl.SSLContext:
+    """Python.org builds on macOS ship without a CA bundle, so prefer certifi's.
+
+    Falls back to the default context when certifi is absent (Homebrew and
+    system Pythons already trust the platform roots).
+    """
+    try:
+        import certifi
+        return ssl.create_default_context(cafile=certifi.where())
+    except Exception:
+        return ssl.create_default_context()
+
+
+CONTEXT = ssl_context()
+
+
 def post_form(url: str, fields: dict) -> dict:
     data = urllib.parse.urlencode(fields).encode()
     request = urllib.request.Request(url, data=data, method="POST")
     try:
-        with urllib.request.urlopen(request) as response:
+        with urllib.request.urlopen(request, context=CONTEXT) as response:
             return json.load(response)
     except urllib.error.HTTPError as error:
         body = error.read().decode()
@@ -98,7 +115,7 @@ def api(path: str, token: str, method: str = "GET", body: dict | None = None,
     if payload:
         request.add_header("Content-Type", "application/json")
     try:
-        with urllib.request.urlopen(request) as response:
+        with urllib.request.urlopen(request, context=CONTEXT) as response:
             raw = response.read()
             return json.loads(raw) if raw else {}
     except urllib.error.HTTPError as error:
