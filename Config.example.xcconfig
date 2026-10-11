@@ -1,0 +1,9 @@
+// Copy to Config.local.xcconfig (git-ignored) and fill in your own credentials.
+//
+// 1. Create a project at https://console.cloud.google.com/
+// 2. Enable the "Photos Ambient API".
+// 3. Create an OAuth 2.0 Client ID of type "TVs and Limited Input devices".
+// 4. On the OAuth consent screen, add your own Google account as a Test user.
+
+GPTV_CLIENT_ID = 000000000000-xxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com
+GPTV_CLIENT_SECRET = GOCSPX-xxxxxxxxxxxxxxxxxxxxxxxx

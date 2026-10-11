@@ -1,0 +1,10 @@
+// Committed defaults. Real credentials live in Config.local.xcconfig, which is
+// git-ignored — copy Config.example.xcconfig to create it.
+//
+// With no credentials the app still builds and runs; it shows setup instructions
+// and offers the local Takeout archive mode instead.
+
+GPTV_CLIENT_ID =
+GPTV_CLIENT_SECRET =
+
+#include? "Config.local.xcconfig"

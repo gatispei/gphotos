@@ -1,0 +1,19 @@
+# Secrets — never commit real OAuth credentials
+Config.local.xcconfig
+
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+.swiftpm/
+
+# macOS
+.DS_Store
+
+# Takeout server
+tools/takeout-server/__pycache__/
+tools/takeout-server/*.sqlite3
+tools/takeout-server/index.json
